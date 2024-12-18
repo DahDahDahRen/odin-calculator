@@ -1,17 +1,18 @@
 function app() {
   //* DOM
   const displayContainer = document.querySelector(".display-container");
+  const inputContainer = document.querySelector(".input-container");
   const numInputContainer = document.querySelector(".num-input-container");
   const operationInputContainer = document.querySelector(
     ".operation-input-container"
   );
 
   //* App Level variables
-  let operandOne;
-  let operandTwo;
+  let operandOne = 0;
+  let operandTwo = 0;
   let operator = null;
-  let previousFirstInputedNum = [];
-  let previousSecondInputedNum = [];
+  let result = 0;
+  let displayNum = "";
 
   //* Calculator Object
   const calculator = {
@@ -29,109 +30,73 @@ function app() {
       },
 
       divide: function (num1, num2) {
-        return num1 / num2;
+        return Math.floor(num1 / num2);
       },
     },
   };
 
-  function returnAnOperator(operator) {
-    return operator;
-  }
-
-  //! Operation function
+  //! Operate
   function operate(num1, num2, operator) {
-    let result = 0;
-
-    //! Check if operator is empty
-    if (operator === "") {
-      return console.log("No operator");
+    //! Addition
+    if (operator === "addition") {
+      return calculator.mathOperators.add(num1, num2);
     }
 
-    //! Check if operator is add
-    if (operator === "add") {
-      result = calculator.mathOperators.add(num1, num2);
-
-      return result;
-    }
-
-    //! Check if operator is subtraction
+    //! Subtraction
     if (operator === "subtract") {
-      result = calculator.mathOperators.subtract(num1, num2);
-
-      return result;
+      return calculator.mathOperators.subtract(num1, num2);
     }
 
-    //! Check if operator is multiplication
-    if (operator === "multiply") {
-      result = calculator.mathOperators.multiply(num1, num2, operator);
-
-      return result;
-    }
-
-    //! Check if operator is division
+    //! Divide
     if (operator === "divide") {
-      result = calculator.mathOperators.divide(num1, num2);
+      return calculator.mathOperators.divide(num1, num2);
+    }
 
-      return result;
+    //! Multiply
+    if (operator === "multiply") {
+      return calculator.mathOperators.multiply(num1, num2);
     }
   }
 
-  // console.log(operate(1, 2, "divide"));
-
-  //! Attach an event listener to number buttons container
+  //! Input event listener
   numInputContainer.addEventListener("click", (e) => {
+    //! Check if key pressed is number button
     if (e.target.classList.contains("btn-num")) {
-      //* Get the input number
-      let userNumber = e.target.textContent;
-
-      //* Append the number to the previous inputed number
-      previousFirstInputedNum.push(userNumber);
-
-      //* Assigned the the first inputed number to first operand varialbe
-      operandOne = +previousFirstInputedNum.join("");
-
-      //* Display the number to the UI
-      displayContainer.textContent = "";
-      displayContainer.textContent += +previousFirstInputedNum.join("");
-
-      console.log(operandOne);
+      //! Get the first operand
+      if (operator === null) {
+        displayNum += e.target.dataset.num;
+        displayContainer.textContent = "";
+        displayContainer.textContent = displayNum;
+        operandOne = +displayNum;
+      } else {
+        //! Get the second operand
+        displayNum += e.target.dataset.num;
+        displayContainer.textContent = "";
+        displayContainer.textContent = displayNum;
+        operandTwo = +displayNum;
+      }
     }
   });
 
-  //! Operation input add event listener
   operationInputContainer.addEventListener("click", (e) => {
-    if (e.target.classList.contains("btn-operation")) {
-      //* Get the specified user operation
-      const userSpecifiedOperation = e.target.textContent.trim();
+    //! Get the operator
+    if (e.target.classList.contains("basic-operator")) {
+      operator = e.target.dataset.operator;
+      displayContainer.textContent = 0;
+      displayNum = "";
+    }
 
-      //* check the operation if addition
-      if (userSpecifiedOperation === "+") {
-        operator = "addition";
+    //! Perform an operation
+    if (e.target.matches(".btn-equal")) {
+      result = operate(operandOne, operandTwo, operator);
+      displayContainer.textContent = result;
+      displayContainer.style.color = "yellow";
+    }
 
-        //* Clear Display Container
-        displayContainer.textContent = "";
-      }
-
-      //* check the operation if addition
-      if (userSpecifiedOperation === "-") {
-        operator = "subtraction";
-
-        console.log(operator);
-      }
-
-      //* check the operation if addition
-      if (userSpecifiedOperation === "/") {
-        operator = "division";
-
-        console.log(operator);
-      }
-
-      //* check the operation if addition
-      if (userSpecifiedOperation === "X") {
-        operator = "multiply";
-
-        console.log(operator);
-      }
+    //! Clear the calculator
+    if (e.target.matches(".btn-clear")) {
+      displayContainer.textContent = 0;
+      displayContainer.style.color = "white";
     }
   });
 }

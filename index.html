@@ -14,37 +14,50 @@
 
         <div class="input-container">
           <div class="num-input-container">
-            <button class="btn btn-num">1</button>
-            <button class="btn btn-num">2</button>
-            <button class="btn btn-num">3</button>
-            <button class="btn btn-num">4</button>
-            <button class="btn btn-num">5</button>
-            <button class="btn btn-num">6</button>
-            <button class="btn btn-num">7</button>
-            <button class="btn btn-num">8</button>
-            <button class="btn btn-num">9</button>
-            <button class="btn btn-num">0</button>
+            <button class="btn btn-num" data-num="1">1</button>
+            <button class="btn btn-num" data-num="2">2</button>
+            <button class="btn btn-num" data-num="3">3</button>
+            <button class="btn btn-num" data-num="4">4</button>
+            <button class="btn btn-num" data-num="5">5</button>
+            <button class="btn btn-num" data-num="6">6</button>
+            <button class="btn btn-num" data-num="7">7</button>
+            <button class="btn btn-num" data-num="8">8</button>
+            <button class="btn btn-num" data-num="9">9</button>
+            <button class="btn btn-num" data-num="0">0</button>
           </div>
 
           <div class="operation-input-container">
-            <button class="btn btn-operation operation-input-btn-accent">
+            <button
+              class="btn basic-operator operation-input-btn-accent"
+              data-operator="subtract"
+            >
               -
             </button>
-            <button class="btn btn-operation operation-input-btn-accent">
+            <button
+              class="btn basic-operator operation-input-btn-accent"
+              data-operator="addition"
+            >
               +
             </button>
-            <button class="btn btn-operation operation-input-btn-accent">
+            <button
+              class="btn basic-operator operation-input-btn-accent"
+              data-operator="divide"
+            >
               /
             </button>
-            <button class="btn btn-operation operation-input-btn-accent">
-              X
+            <button
+              class="btn basic-operator operation-input-btn-accent"
+              data-operator="multiply"
+            >
+              x
             </button>
-            <button class="btn btn-operation operation-input-btn-accent">
+            <button
+              class="btn btn-equal operation-input-btn-accent btn-equal"
+              data-operator="equal"
+            >
               =
             </button>
-            <button class="btn btn-operation operation-input-btn-accent">
-              C
-            </button>
+            <button class="btn btn-clear operation-input-btn-accent">C</button>
           </div>
         </div>
       </div>
